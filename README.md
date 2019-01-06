@@ -12,6 +12,7 @@ Die hochgeladenen Dateien folgen den einzelnen Lektionen:
 
 Lektion 1: Hallo Welt
 - Lektion 1/index.php
+
 https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
 
 Lektion 2: Hallo Datenbank
