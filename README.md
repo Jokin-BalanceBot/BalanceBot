@@ -18,6 +18,7 @@ Lektion 2: Hallo Datenbank
 - Lektion 2/config.php
 - Lektion 2/index.php
 - Lektion 2/show_messages.php
+
 https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
 
 Lektion 3. Hallo Binance-API
