@@ -11,43 +11,43 @@ Das Tool ist ansonsten absolut gratis und darf von jedem zu nicht-kommerziellen 
 Die hochgeladenen Dateien folgen den einzelnen Lektionen:
 
 Lektion 1: Hallo Welt
-- index_01.php
+- Lektion 1/index.php
 https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
 
-Lektion 2. Hallo Datenbank
-- index_02.php
-- config.php
-- show_messages_01.php
+Lektion 2: Hallo Datenbank
+- Lektion 2/config.php
+- Lektion 2/index.php
+- Lektion 2/show_messages.php
 https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
 
 Lektion 3. Hallo Binance-API
-- index_03.php
-- config.php
-- show_messages_01.php
+- Lektion 3/config.php
+- Lektion 3/index.php
+- Lektion 3/show_messages.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 4. Hallo Cryptobestand
-- index_04.php
-- config.php
-- show_messages_01.php
+- Lektion 4/config.php
+- Lektion 4/index.php
+- Lektion 4/show_messages.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 5. Hallo Strategie
-- index_05.php
-- config.php
-- show_messages_01.php
+- Lektion 5/config.php
+- Lektion 5/index.php
+- Lektion 5/show_messages.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 6. Hallo Orderbook
-- index_06.php
-- config.php
-- show_messages_01.php
+- Lektion 6/config.php
+- Lektion 6/index.php
+- Lektion 6/show_messages.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 7. Hallo Cronjob
-- index_07.php
-- config.php
-- show_messages_02.php (<- hier wird die show_messages.php erweitert)
+- Lektion 7/config.php
+- Lektion 7/index.php
+- Lektion 7/show_messages.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Fertiges Programm "BalanceBot" (wird voraussichtlich ab Ende Januar 2019 verfügbar sein):
