@@ -115,7 +115,11 @@ update_messages("Hallo Welt!");
 // (Platzhalter)
 
 // Abschnitt index.php 14: 
-// (Platzhalter)
+// Irgendwann ist die Datenbank voll, daher löschen wir Einträge, die älter als 7 Tage sind. (aus Teil 2)
+$sql_query = "DELETE FROM `tblMessages` where `date_created`  < DATE_ADD(now(),INTERVAL -7 DAY)";
+
+// Und auch obiges SQL-Statement an die Datenbank senden (aus Teil 2)
+$mysqli->query($sql_query);
 
 
 
