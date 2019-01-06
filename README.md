@@ -2,7 +2,9 @@
 Coinforum Workshop Binance-BalanceBot
 
 Siehe hier für weitere Informationen:
-https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
+- https://coinforum.de/topic/15956-interessensabfrage-wer-möchte-selber-einen-tradingbot-erstellen
+- https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
+- https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
 
 Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-Account über meinen Ref-Link https://www.binance.com/?ref=28506673  anlegen, damit seine BalanceBot-Assets von allem anderen Vermögen getrennt ist und ich eine kleine Aufmerksamkeit für meinen Aufwand erhalte :-)
 
