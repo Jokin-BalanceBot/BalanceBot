@@ -68,7 +68,7 @@ function update_messages($message){
 // Abschnitt index.php 5: 
 function update_accountinfo(){
 
-	global $__balanceBot_coins; // der Status steht in unserem "Master"-Array zusammen mit alen anderen Daten
+	global $__balanceBot_coins; // der Status steht in unserem "Master"-Array zusammen mit allen anderen Daten
 	global $__balanceBot_basecurrency;
 	global $binance_api_handler; // den Binance-API-Handler brauchen wir in unserer Funktion.
 
@@ -81,7 +81,7 @@ function update_accountinfo(){
 	echo "</pre>";
 
 	// Abschnitt index.php 5.1: 
-	// ok, nun wissen wir, dass in dem Array unter "balances" je Asset unser Bestand steht (Teil 4)
+	// ok, nun wissen wir, dass in dem Array unter "balances" je Asset unser Bestand steht
 	// Also können wir in einer foreach-Schleife die zurückgegebenen Daten durchsuchen ob wir unsere Basiswährung finden
 	foreach ($array_binance_account['balances'] as $key => $array_account_coin){
 
@@ -100,19 +100,19 @@ function update_accountinfo(){
 
 	// Abschnitt index.php 5.2: 
 
-	// ... und ob wir unsere Coins finden, die der BalanceBot verwalten soll (Teil 4)
+	// ... und ob wir unsere Coins finden, die der BalanceBot verwalten soll
 	// Da wir jedoch mehr als nur einen Coin von unserem Bot verwalten lassen, müssen wir für jeden Coin, der von Binance zurück kommt
 	// in einer weiteren foreach-Schleife die zu verwaltenden Coins gegenchecken, also eine Stufe schwerer als für die Basis-Währung.
 	foreach ($array_binance_account['balances'] as $key => $array_account_coin){
 
 		foreach ($__balanceBot_coins as $key => $array_coin){
-			// wenn das Asset dem Namen unserer Basis-Währung entspricht, haben wir unseren Basis-Coin gefunden
+			// wenn das Asset dem Namen unseres Coins entspricht, haben wir unseren Coin gefunden
 			if ($array_account_coin['asset'] == $array_coin['name']){
 				// "locked" sind die Coins, für die gerade offene Order angelegt sind, "free" sind die noch verfügbaren Coins für neue Order
 				$message = "Bestand: ".($array_account_coin['free'] + $array_account_coin['locked'])." ".$array_account_coin['asset'] ." ";
 				update_messages($message); // Message in DB schreiben und ausgeben.
 		
-				// wenn wir den Bestand gefunden haben, können wir den auch gleich in unser Array zum basiscoin aufnehmen:
+				// wenn wir den Bestand gefunden haben, können wir den auch gleich in unser Array zum Coin aufnehmen:
 				$__balanceBot_coins[$key]['free'] = $array_account_coin['free'];
 				$__balanceBot_coins[$key]['locked'] = $array_account_coin['locked'];
 			}
