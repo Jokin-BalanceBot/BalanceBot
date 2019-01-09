@@ -19,7 +19,7 @@
 *   Google "php manual require_once" um nachzulesen wie "require_once()" den Code weiterer Dateien einbindet.
 *
 * Dokumentation:
-*  https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2/
+*  https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3/
 *  https://github.com/Jokin-BalanceBot/BalanceBot
 */
 
