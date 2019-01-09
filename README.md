@@ -5,6 +5,7 @@ Siehe hier für weitere Informationen:
 - https://coinforum.de/topic/15956-interessensabfrage-wer-möchte-selber-einen-tradingbot-erstellen
 - https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
 - https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
+- https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3
 
 Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-Account über meinen Ref-Link https://www.binance.com/?ref=28506673  anlegen, damit seine BalanceBot-Assets von allem anderen Vermögen getrennt ist und ich eine kleine Aufmerksamkeit für meinen Aufwand erhalte :-)
 
@@ -28,30 +29,36 @@ Lektion 3. Hallo Binance-API
 - Lektion 3/config.php
 - Lektion 3/index.php
 - Lektion 3/show_messages.php
-(Link zum Coinforum mit Anleitung folgt)
+- Lektion 3/php-binance-api.php
+
+https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3/
 
 Lektion 4. Hallo Cryptobestand
 - Lektion 4/config.php
 - Lektion 4/index.php
 - Lektion 4/show_messages.php
+- Lektion 4/php-binance-api.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 5. Hallo Strategie
 - Lektion 5/config.php
 - Lektion 5/index.php
 - Lektion 5/show_messages.php
+- Lektion 5/php-binance-api.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 6. Hallo Orderbook
 - Lektion 6/config.php
 - Lektion 6/index.php
 - Lektion 6/show_messages.php
+- Lektion 6/php-binance-api.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Lektion 7. Hallo Cronjob
 - Lektion 7/config.php
 - Lektion 7/index.php
 - Lektion 7/show_messages.php
+- Lektion 7/php-binance-api.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Fertiges Programm "BalanceBot" (wird voraussichtlich ab Ende Januar 2019 verfügbar sein):
