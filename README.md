@@ -6,6 +6,7 @@ Siehe hier für weitere Informationen:
 - https://coinforum.de/topic/15985-workshop-wir-basteln-uns-einen-tradingbot-lektion-1
 - https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
 - https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3
+- https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lektion-4
 
 Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-Account über meinen Ref-Link https://www.binance.com/?ref=28506673  anlegen, damit seine BalanceBot-Assets von allem anderen Vermögen getrennt ist und ich eine kleine Aufmerksamkeit für meinen Aufwand erhalte :-)
 
@@ -33,12 +34,13 @@ Lektion 3. Hallo Binance-API
 
 https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3/
 
-Lektion 4. Hallo Cryptobestand
+Lektion 4. Hallo Kryptobestand
 - Lektion 4/config.php
 - Lektion 4/index.php
 - Lektion 4/show_messages.php
 - Lektion 4/php-binance-api.php
-(Link zum Coinforum mit Anleitung folgt)
+
+https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lektion-4/
 
 Lektion 5. Hallo Strategie
 - Lektion 5/config.php
