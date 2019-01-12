@@ -20,6 +20,7 @@
 *  1JokinL8P2A5Zh9QNyD9Rv2HGCYRGLhhef (BTC oder BCH)
 */
 
+
 // Abschnitt index.php 1: Datei mit den Konfigurationsparametern einlesen
 require_once("config.php");
 
@@ -285,6 +286,7 @@ function create_order($side, $symbol, $amount, $price){
 	update_messages ($message);								
 }
 
+
 // Abschnitt index.php 8: 
 // Binance-API anbinden
 require_once ("php-binance-api.php"); // Binance-API Code laden
@@ -419,7 +421,7 @@ foreach ($array_coins_sorted_by_deviation as $key => $nothing){ // $nothing weil
 	// ... if ($__balanceBot_coins[$key]['deviation_percentage'] < 1) then BUY Coin
 	// Neues Problem: Ein BUY ist unsinnig wenn meine Basiswährung ebenfalls unter dem SOLL-Wert liegt, dadurch vergrößere ich meine Abweichung bei der Basiswährung.
 	//
-	// $__balanceBot_basecurrency['deviation_percentage'] enthält die prozentuale Abweichung von IST und SOLL des Basiswährugns-Anteils vom Coin-Gesamtwert
+	// $__balanceBot_basecurrency['deviation_percentage'] enthält die prozentuale Abweichung von IST und SOLL des Basiswährungs-Anteils vom Coin-Gesamtwert
 	// Gedanke 2: Wenn die IST/SOLL-Abweichung des Coins GLEICH der IST/SOLL-Abweichung der Basiswährung ist, muss NICHT ausbalanciert werden, ansonsten wird ausbalanciert:
 	// ... if ($__balanceBot_coins[$key]['deviation_percentage'] > $__balanceBot_basecurrency['deviation_percentage']) then SELL Coin
 	// ... if ($__balanceBot_coins[$key]['deviation_percentage'] < $__balanceBot_basecurrency['deviation_percentage']) then BUY Coin
@@ -430,11 +432,11 @@ foreach ($array_coins_sorted_by_deviation as $key => $nothing){ // $nothing weil
 	// Gedanke 3: Wenn die Abweichung des Coins und die Abweichung der Basiswährung tolerierbar sind, wird NICHT ausbalanciert, ansonsten wird ausbalanciert:
 	// ... if ($__balanceBot_coins[$key]['deviation_percentage']+$__balanceBot_coins[$key]['tolerance_factor']/100 > $__balanceBot_basecurrency['deviation_percentage']) then SELL Coin
 	// ... if ($__balanceBot_coins[$key]['deviation_percentage']-$__balanceBot_coins[$key]['tolerance_factor']/100 < $__balanceBot_basecurrency['deviation_percentage']) then BUY Coin
-	// Neues Problem: Die Toleranzschwele liegt bei geringem Portfoliowert von 100 USDT recht hoch, fast schon zu hoch für vernünftiges Ausbalancieren
+	// Neues Problem: Die Toleranzschwelle liegt bei geringem Portfoliowert von 100 USDT recht hoch, fast schon zu hoch für vernünftiges Ausbalancieren
 	//
 	// Gedanke 4: mo' money helps a lot ...
 	
-	$message = "BALANCE SELL: ".$__balanceBot_coins[$key]['name']." ".round($__balanceBot_coins[$key]['deviation_percentage'],2)."-".($__balanceBot_coins[$key]['tolerance_factor']/100)."  > ".round($__balanceBot_basecurrency['deviation_percentage'],2)." ";
+	$message = "BALANCE SELL: ".$__balanceBot_coins[$key]['name']." ".round($__balanceBot_coins[$key]['deviation_percentage'],2)."-".($__balanceBot_coins[$key]['tolerance_factor']/100)."  = ".round($__balanceBot_coins[$key]['deviation_percentage']-$__balanceBot_coins[$key]['tolerance_factor']/100,2)." > ".round($__balanceBot_basecurrency['deviation_percentage'],2)." ";
 	if ($__balanceBot_coins[$key]['deviation_percentage'] - $__balanceBot_coins[$key]['tolerance_factor']/100 <= $__balanceBot_basecurrency['deviation_percentage']){
 		$message .= " => do nothing";
 		update_messages($message); // Message in DB schreiben und ausgeben.
@@ -471,17 +473,61 @@ foreach ($array_coins_sorted_by_deviation as $key => $nothing){ // $nothing weil
 
 			}
 		}	
+
 		
 		// Abschnitt index.php 12.2.1.2.:
-		// (Platzhalter)
+		// falls ich nix zum Löschen gefunden hab, muss ich eine neue Order anlegen
+		if (!$already_order_deleted){
+
+
+			// Der Preis kann auch aus dem Mittelwert von aktuellem Kurs und dem Min (buy) oder Max (sell) gebildet werden.
+			// Das hat den Vorteil, dass Order, die nahe dem unteren Minimum sind nahe am aktuellen Kurs eingestellt werden und 
+			// Order, die weit weg vom unteren Minimum mit entsprechend weit entferntem Kurs eingestellt werden, damit lässt sich der Ertrag
+			// verbessern, denn das Ganze ist eh "langfristig".
+			$price = round(($__balanceBot_coins[$key]['price']+$__balanceBot_coins[$key]['price_24_high'])/2,$__balanceBot_coins[$key]['tickSizePrecision']);
+			
+			// die Menge ergibt sich aus dem Gesamt-Portfoliowert und dem trading_factor
+			$amount = round(($sum_coin_value + $__balanceBot_basecurrency['virtual_balance']) * $__trading_factor/100 / $price,$__balanceBot_coins[$key]['minQtyPrecision']);
+			
+			// Der Minimum-Betrag darf natürlich nicht unterschritten werden
+			// das "+ $__balanceBot_coins[$key]['minQty']" ist dazu da um Abrundungen zu vermeiden
+			$min_amount = round($__balanceBot_coins[$key]['minNotional'] / $price, $__balanceBot_coins[$key]['minQtyPrecision']) + $__balanceBot_coins[$key]['minQty'];
+			if ($amount < $min_amount) $amount = $min_amount;			
+			
+			$symbol = $__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name'];
+			$side = "SELL";
+		
+			// mit number_format stelle ich sicher, dass cih keine "2.4E-5" anstatt "0.00025" angezeigt bekomme
+			$message = " ... Erstelle Order: $side ".number_format($amount, $__balanceBot_coins[$key]['minQtyPrecision'], '.', '')." @ $price $market (aktueller Kurs: ".$__balanceBot_coins[$key]['price'].") ";
+			update_messages($message); // Message in DB schreiben und ausgeben.
+
+			// Abschnitt index.php 12.2.1.2.1:
+			// prüfen ob ich überhaupt genug Coins zur Verfügung habe
+			if ($__balanceBot_coins[$key]['free'] > $amount){
+				// Im oberen Abschnitt haben wir die Funktion "create_order()" deklariert.
+				create_order($side, $symbol, $amount, $price);
+
+				// nachdem sich nun was an den offenen Order getan hat, aktualisieren wir unseren Status.
+				// zuerst laden wir unsere neuen Accountinfo, dann alle offenen Order zu dem aktuell bearbeiteten Coin und dann aktualisieren wir den Status	
+				update_accountinfo();			
+				$array_binance_openOrders[$__balanceBot_coins[$key]['name']] = $binance_api_handler->openOrders($__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name']);
+				update_status(); 
+
+			} else {
+				$message = " ... FEHLER: Nicht genug frei verfügbare ".$__balanceBot_coins[$key]['name']." vorhanden";
+				update_messages($message); // Message in DB schreiben und ausgeben.
+			}
+
+		}
+
 			
 	}
 	
 	
 	// Abschnitt index.php 12.2.2.:
 	// Beispielwert: BTC-Deviation 0,3 + (10/100) > 0,6 ist ok - ansonsten: Das führt zum BUY der BTC
-	$message = "BALANCE BUY: ".$__balanceBot_coins[$key]['name']." ".round($__balanceBot_coins[$key]['deviation_percentage'],2)."+".($__balanceBot_coins[$key]['tolerance_factor']/100)."  < ".round($__balanceBot_basecurrency['deviation_percentage'],2)." ";
-	if ($__balanceBot_coins[$key]['deviation_percentage'] + $__balanceBot_coins[$key]['tolerance_factor']/100 => $__balanceBot_basecurrency['deviation_percentage']){
+	$message = "BALANCE BUY: ".$__balanceBot_coins[$key]['name']." ".round($__balanceBot_coins[$key]['deviation_percentage'],2)."+".($__balanceBot_coins[$key]['tolerance_factor']/100)." = ".round($__balanceBot_coins[$key]['deviation_percentage']+$__balanceBot_coins[$key]['tolerance_factor']/100,2)." < ".round($__balanceBot_basecurrency['deviation_percentage'],2)." ";
+	if ($__balanceBot_coins[$key]['deviation_percentage'] + $__balanceBot_coins[$key]['tolerance_factor']/100 >= $__balanceBot_basecurrency['deviation_percentage']){
 		$message .= " => do nothing";
 		update_messages($message); // Message in DB schreiben und ausgeben.
 	} else { // ... die Abweichung des Coins ist < der Abweichung der Basiswährung
@@ -489,20 +535,125 @@ foreach ($array_coins_sorted_by_deviation as $key => $nothing){ // $nothing weil
 		update_messages($message); // Message in DB schreiben und ausgeben.
 
 		// Abschnitt index.php 12.2.2.1.:
-		// (Platzhalter)	
+		// Bevor wir eine neue SELL-Order anlegen, suchen wir eine vorhandene BUY-order und löschen die einfach mal aus dem Orderbuch raus.
+		// Dabei ist uns jetzt erstmal egal wie weit weg die Order vom aktuellen Kurs ist oder was für ein Trade-Volumen die hat.
+		foreach ($array_binance_openOrders[$__balanceBot_coins[$key]['name']] as $array_openOrder){
+			if ($array_openOrder['side'] == "SELL" AND $already_order_deleted == 0){
+
+				$message = " Order zum Löschen gefunden!  ";
+
+				$result_binance_cancel = $binance_api_handler->cancel($__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name'], $array_openOrder["orderId"]);
+
+				if ($result_binance_cancel['code']){
+					$message .= "Binance-API-Call-ERROR ".$result_binance_cancel['code'].": ".$result_binance_cancel['msg']." ";
+					update_messages($message); // Message in DB schreiben und ausgeben.
+				} else {
+					$message .= " ... gelöscht.";
+					update_messages($message); // Message in DB schreiben und ausgeben.
+					$already_order_deleted = 1; // Löschmerker auf 1 setzen damit ich nicht noch mehr Order weglösche
+
+					// nachdem sich nun was an den offenen Order getan hat, aktualisieren wir unseren Status.
+					// zuerst laden wir unsere neuen Accountinfo, dann alle offenen Order zu dem aktuell bearbeiteten Coin und dann aktualisieren wir den Status	
+					update_accountinfo();			
+					$array_binance_openOrders[$__balanceBot_coins[$key]['name']] = $binance_api_handler->openOrders($__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name']);
+					update_status(); 
+				
+				}
+
+			}
+		}	
+
 
 		// Abschnitt index.php 12.2.2.2.:
-		// (Platzhalter)
+		// falls ich nix zum Löschen gefunden hab, muss ich eine neue Order anlegen
+		if (!$already_order_deleted){
+
+
+			// Der Preis kann auch aus dem Mittelwert von aktuellem Kurs und dem Min (buy) oder Max (sell) gebildet werden.
+			// Das hat den Vorteil, dass Order, die nahe dem unteren Minimum sind nahe am aktuellen Kurs eingestellt werden und 
+			// Order, die weit weg vom unteren Minimum mit entsprechend weit entferntem Kurs eingestellt werden, damit lässt sich der Ertrag
+			// verbessern, denn das Ganze ist eh "langfristig".
+			$price = round(($__balanceBot_coins[$key]['price']+$__balanceBot_coins[$key]['price_24_low'])/2,$__balanceBot_coins[$key]['tickSizePrecision']);
+			
+			// die Menge ergibt sich aus dem Gesamt-Portfoliowert und dem trading_factor
+			$amount = round(($sum_coin_value + $__balanceBot_basecurrency['virtual_balance']) * $__trading_factor/100 / $price,$__balanceBot_coins[$key]['minQtyPrecision']);
+			
+			// Der Minimum-Betrag darf natürlich nicht unterschritten werden
+			// das "+ $__balanceBot_coins[$key]['minQty']" ist dazu da um Abrundungen zu vermeiden
+			$min_amount = round($__balanceBot_coins[$key]['minNotional'] / $price, $__balanceBot_coins[$key]['minQtyPrecision']) + $__balanceBot_coins[$key]['minQty'];
+			if ($amount < $min_amount) $amount = $min_amount;			
+
+			$symbol = $__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name'];
+			$side = "BUY";
+
+			$message = " ... Erstelle Order: $side ".number_format($amount, $__balanceBot_coins[$key]['minQtyPrecision'], '.', '')." @ $price $market (aktueller Kurs: ".$__balanceBot_coins[$key]['price'].") ";
+			update_messages($message); // Message in DB schreiben und ausgeben.
+
+			// Abschnitt index.php 12.2.2.2.1.:
+			// prüfen ob ich überhaupt genug Basiswährung zur Verfügung habe
+			if ($__balanceBot_basecurrency['free'] > $price * $amount){
+				// Im oberen Abschnitt haben wir die Funktion "create_order()" deklariert.
+				create_order($side, $symbol, $amount, $price);
+
+
+				// nachdem sich nun was an den offenen Order getan hat, aktualisieren wir unseren Status.
+				// zuerst laden wir unsere neuen Accountinfo, dann alle offenen Order zu dem aktuell bearbeiteten Coin und dann aktualisieren wir den Status	
+				update_accountinfo();			
+				$array_binance_openOrders[$__balanceBot_coins[$key]['name']] = $binance_api_handler->openOrders($__balanceBot_coins[$key]['name'].$__balanceBot_basecurrency['name']);
+				update_status(); 
+
+			} else {
+				$message = "FEHLER: Nicht genug ".$__balanceBot_basecurrency['name']." vorhanden (benötigt: ".($price * $amount).") ";
+				update_messages($message); // Message in DB schreiben und ausgeben.
+			}
+
+		
+		}			
+	
+
 			
 	}
 	
 }
 
-// Abschnitt index.php 13:
-// (Platzhalter)
+
+// Abschnitt index.php 13: 
+// wieder arbeiten wir jeden zu verwaltenden Coin ab:
+foreach ($__balanceBot_coins as $key => $array_coin){
+
+	// und für jeden Coin arbeiten wir dessen offene Order ab
+	foreach ($array_binance_openOrders[$array_coin['name']] as $array_openOrder){
+			
+		// Der Zeitstempel wann die Order das letzte Mal aktualisiert wurde (z.B. durch Teilverkauf) is in Millisekuden angegeben.
+		// 1 Millisekunde = 1 Stunde / 1000 / 60 / 60
+		// Das Alter berechne ich aus dem aktuellen Zeitstempel
+		$array_openOrder['ageInHours'] = (Time() - $array_openOrder['updateTime'] / 1000) / 60 / 60;
+			
+		if ($array_openOrder['ageInHours'] > $__max_orderAge){
+
+			$message = " Veraltete Order zum Löschen gefunden!  ";
+
+			$result_binance_cancel = $binance_api_handler->cancel($array_coin['name'].$__balanceBot_basecurrency['name'], $array_openOrder["orderId"]);
+
+			if ($result_binance_cancel['code']){
+				$message .= "Binance-API-Call-ERROR ".$result_binance_cancel['code'].": ".$result_binance_cancel['msg']." ";
+			} else {
+				$message .= " ... gelöscht.";
+			}
+			update_messages($message); // Message in DB schreiben und ausgeben.
+
+		}
+	}		
+
+}
+
 
 // Abschnitt index.php 14: 
-// (Platzhalter)
+// Irgendwann ist die Datenbank voll, daher löschen wir Einträge, die älter als 7 Tage sind. (aus Teil 2)
+$sql_query = "DELETE FROM `tblMessages` where `date_created`  < DATE_ADD(now(),INTERVAL -7 DAY)";
+
+// Und auch obiges SQL-Statement an die Datenbank senden (aus Teil 2)
+$mysqli->query($sql_query);
 
 
 
