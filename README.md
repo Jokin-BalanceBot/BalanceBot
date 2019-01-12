@@ -49,6 +49,7 @@ Lektion 5. Hallo Strategie
 - Lektion 5/index.php
 - Lektion 5/show_messages.php
 - Lektion 5/php-binance-api.php
+
 https://coinforum.de/topic/16058-workshop-wir-basteln-uns-einen-tradingbot-lektion-5/
 
 Lektion 6. Hallo Orderbook
