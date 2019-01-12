@@ -7,6 +7,7 @@ Siehe hier für weitere Informationen:
 - https://coinforum.de/topic/15993-workshop-wir-basteln-uns-einen-tradingbot-lektion-2
 - https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3
 - https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lektion-4
+- https://coinforum.de/topic/16058-workshop-wir-basteln-uns-einen-tradingbot-lektion-5
 
 Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-Account über meinen Ref-Link https://www.binance.com/?ref=28506673  anlegen, damit seine BalanceBot-Assets von allem anderen Vermögen getrennt ist und ich eine kleine Aufmerksamkeit für meinen Aufwand erhalte :-)
 
@@ -44,10 +45,11 @@ https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lekti
 
 Lektion 5. Hallo Strategie
 - Lektion 5/config.php
+  (Achtung, ich habe hier die Portfolio-Coins geändert!, Basiswährung ist nun aufgrund der Trading-Rules nicht mehr USDT sondern ETH um auch mit kleinem Budget von 100 USDT ausbalancieren kann. Dementsprechend nicht mehr BTC und ETH als Coins sondern nun NEO und BNB)
 - Lektion 5/index.php
 - Lektion 5/show_messages.php
 - Lektion 5/php-binance-api.php
-(Link zum Coinforum mit Anleitung folgt)
+https://coinforum.de/topic/16058-workshop-wir-basteln-uns-einen-tradingbot-lektion-5/
 
 Lektion 6. Hallo Orderbook
 - Lektion 6/config.php
