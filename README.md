@@ -45,7 +45,7 @@ https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lekti
 
 Lektion 5. Hallo Strategie
 - Lektion 5/config.php
-  (Achtung, ich habe hier die Portfolio-Coins geändert!, Basiswährung ist nun aufgrund der Trading-Rules nicht mehr USDT sondern ETH um auch mit kleinem Budget von 100 USDT ausbalancieren kann. Dementsprechend nicht mehr BTC und ETH als Coins sondern nun NEO und BNB)
+  (Achtung, ich habe hier die Portfolio-Coins geändert!, Basiswährung ist nun aufgrund der Trading-Rules nicht mehr USDT sondern ETH um auch mit kleinem Budget von 100 USDT ausbalancieren zu können. Dementsprechend nicht mehr BTC und ETH als Coins sondern nun NEO und BNB)
 - Lektion 5/index.php
 - Lektion 5/show_messages.php
 - Lektion 5/php-binance-api.php
