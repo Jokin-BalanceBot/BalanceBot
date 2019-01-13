@@ -46,6 +46,13 @@ $__balanceBot_coins = array(
 
 
 // Abschnitt config.php 4: 
-// (Platzhalter)
+$__trading_factor = 0.1; 	// 0.1 meint, dass mit 0.1% des Gesamt-Portfolio-Wertes jeweils getradet wird.
+							// Große Werte erlauben ein schnelles Ausbalancieren, aber die Strategie wird instabil
+							// ... am Besten klein starten und dann nach oben ausprobieren.
+$__max_orderAge = 12;		// 12 meint, dass eine Order max. 12 Stunden alt sein darf
+							// Werden Order zu früh gelöscht, kann nichts balanciert werden
+							// Werden Order zu spät gelöscht, sind zu wenig freie Coins vorhanden
+
+
 
 ?>
