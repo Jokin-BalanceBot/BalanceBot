@@ -8,6 +8,7 @@ Siehe hier für weitere Informationen:
 - https://coinforum.de/topic/16020-workshop-wir-basteln-uns-einen-tradingbot-lektion-3
 - https://coinforum.de/topic/16035-workshop-wir-basteln-uns-einen-tradingbot-lektion-4
 - https://coinforum.de/topic/16058-workshop-wir-basteln-uns-einen-tradingbot-lektion-5
+- https://coinforum.de/topic/16076-workshop-wir-basteln-uns-einen-tradingbot-lektion-6/
 
 Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-Account über meinen Ref-Link https://www.binance.com/?ref=28506673  anlegen, damit seine BalanceBot-Assets von allem anderen Vermögen getrennt ist und ich eine kleine Aufmerksamkeit für meinen Aufwand erhalte :-)
 
@@ -57,19 +58,23 @@ Lektion 6. Hallo Orderbook
 - Lektion 6/index.php
 - Lektion 6/show_messages.php
 - Lektion 6/php-binance-api.php
-(Link zum Coinforum mit Anleitung folgt)
+- Lektion 6/show_csv.php
+
+https://coinforum.de/topic/16076-workshop-wir-basteln-uns-einen-tradingbot-lektion-6/
 
 Lektion 7. Hallo Cronjob
 - Lektion 7/config.php
 - Lektion 7/index.php
 - Lektion 7/show_messages.php
 - Lektion 7/php-binance-api.php
+- Lektion 7/show_csv.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Fertiges Programm "BalanceBot" (wird voraussichtlich ab Ende Januar 2019 verfügbar sein):
 - index.php
 - config.php
-- show_messages.php (<- hier wird die show_messages.php erweitert)
+- show_messages.php
+- show_csv.php
 (Link zum Coinforum mit Anleitung folgt)
 
 Noch ein paar Worte zur Trading-Strategie (siehe auch den Coinforum-Link zur Lektion 1):
