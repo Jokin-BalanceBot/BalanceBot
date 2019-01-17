@@ -15,6 +15,9 @@ Wer den BalanceBot nutzt möge bitte so fair sein und sich dafür einen Binance-
 
 Das Tool ist ansonsten absolut gratis und darf von jedem zu nicht-kommerziellen Zwecken verwendet werden.
 
+Zu beachten ist, dass nicht jeder Coin bei Binance einfach vom Balancebot verwaltet werden kann. Zuerst muss der Nutzer sich für eine Basiswährung entscheiden, das kann USDT, BTC, ETH, BNB oder XRP sein. Danach gilt es bei Binance die Coins zu ermitteln, die auf dem gewählten Markt gehandelt werden.
+Am Beispiel von XRP ist recht gut zu erkennen, dass das keinen Sinn macht, da es nur zwei Coins gibt, die mit XRP als Basiswährung getradet werden können (derzeit).
+
 Die hochgeladenen Dateien folgen den einzelnen Lektionen:
 
 Lektion 1: Hallo Welt
